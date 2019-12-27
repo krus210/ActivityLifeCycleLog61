@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textHelloWorld = findViewById(R.id.textHelloWorld);
-//        if (savedInstanceState != null && savedInstanceState.containsKey(TEXTVIEW_STATE_KEY)) {
-//            String savedText = savedInstanceState.getString(TEXTVIEW_STATE_KEY);
-//            textHelloWorld.setText(savedText);
-//        }
+        if (savedInstanceState != null && savedInstanceState.containsKey(TEXTVIEW_STATE_KEY)) {
+            String savedText = savedInstanceState.getString(TEXTVIEW_STATE_KEY);
+            textHelloWorld.setText(savedText);
+        }
         msg = "onCreate";
         Log.d(LIFE_CYCLE, msg);
         textHelloWorld.append("\n" + msg);
@@ -133,18 +133,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         msg = "onRestoreInstanceState";
         Log.d(LIFE_CYCLE, msg);
-        textHelloWorld.append("\n" + msg);
-        if (savedInstanceState != null && savedInstanceState.containsKey(TEXTVIEW_STATE_KEY)) {
+        if (savedInstanceState.containsKey(TEXTVIEW_STATE_KEY)) {
             String savedText = savedInstanceState.getString(TEXTVIEW_STATE_KEY);
             textHelloWorld.setText(savedText);
+            textHelloWorld.append("\n" + msg);
         }
-        if (savedInstanceState != null) {
-            super.onRestoreInstanceState(savedInstanceState);
-        }
-
     }
 
 
